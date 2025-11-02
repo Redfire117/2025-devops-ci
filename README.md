@@ -1,290 +1,217 @@
-Welcome to your new TanStack app! 
+Welcome to your new TanStack app!
 
 # Getting Started
 
-To run this application:
+This project uses **pnpm** as the package manager instead of npm. If you're new to Node.js, pnpm is a faster and more efficient alternative to npm that saves disk space by sharing packages between projects.
+
+## Prerequisites
+
+Before you start, make sure you have:
+
+1. **Node.js** installed (version 18 or higher recommended)
+2. **pnpm** installed globally: `npm install -g pnpm`
+
+## First Time Setup
+
+When you first clone or download this project, you need to install all the dependencies:
 
 ```bash
-npm install
-npm run start
+pnpm install
 ```
 
-# Building For Production
+This command reads the `package.json` file and downloads all the required packages into a `node_modules` folder. You only need to run this once, or whenever new dependencies are added to the project.
 
-To build this application for production:
+# Available Commands
+
+Below are all the commands you can run in this project. In the terminal, always prefix them with `pnpm` (e.g., `pnpm dev`).
+
+## Development Commands
+
+### `pnpm dev`
+
+**What it does:** Starts the development server on port 3000  
+**When to use:** This is your main command for developing the app  
+**Prerequisites:** Must run `pnpm install` first  
+**What happens:** Opens a local server at `http://localhost:3000` with hot-reload (automatically refreshes when you save files)
+
+### `pnpm storybook`
+
+**What it does:** Starts Storybook development server on port 6006  
+**When to use:** When you want to develop and test individual components in isolation  
+**Prerequisites:** Must run `pnpm install` first  
+**What happens:** Opens Storybook at `http://localhost:6006` where you can see all your components
+
+## Building Commands
+
+### `pnpm build`
+
+**What it does:** Creates an optimized production build of your app  
+**When to use:** Before deploying your app to production  
+**Prerequisites:** Must run `pnpm install` first  
+**Output:** Creates files in a build/dist folder that can be deployed to a web server
+
+### `pnpm build-storybook`
+
+**What it does:** Creates a static build of your Storybook  
+**When to use:** When you want to deploy your component library documentation  
+**Prerequisites:** Must run `pnpm install` first  
+**Output:** Creates static files that can be hosted anywhere
+
+## Running Built Applications
+
+### `pnpm start`
+
+**What it does:** Runs the production build of your app  
+**When to use:** To test the production build locally  
+**Prerequisites:** Must run `pnpm build` first  
+**Note:** This runs the optimized version, not the development version
+
+### `pnpm serve`
+
+**What it does:** Serves the built app locally for testing  
+**When to use:** Alternative way to test your production build  
+**Prerequisites:** Must run `pnpm build` first
+
+## Testing Commands
+
+### `pnpm test`
+
+**What it does:** Runs all tests once and shows results  
+**When to use:** To check if all tests pass (great before committing code)  
+**Prerequisites:** Must run `pnpm install` first
+
+### `pnpm test:watch`
+
+**What it does:** Runs tests and keeps watching for file changes  
+**When to use:** While developing - tests automatically re-run when you save files  
+**Prerequisites:** Must run `pnpm install` first  
+**How to stop:** Press `Ctrl+C` in the terminal
+
+### `pnpm test:coverage`
+
+**What it does:** Runs all tests and shows how much of your code is tested  
+**When to use:** To see which parts of your code need more tests  
+**Prerequisites:** Must run `pnpm install` first  
+**Output:** Creates a coverage report showing percentages
+
+### `pnpm test:e2e`
+
+**What it does:** Runs end-to-end (e2e) tests using Playwright  
+**When to use:** To test your entire application flow from a user's perspective  
+**Prerequisites:** Must run `pnpm install` first  
+**What it tests:** Real browser interactions, full user workflows, integration between frontend and backend  
+**Note:** These tests are slower than unit tests but test the complete application
+
+### `pnpm test:e2e:ui`
+
+**What it does:** Runs Playwright tests with a visual UI interface  
+**When to use:** When developing e2e tests or debugging test failures  
+**Prerequisites:** Must run `pnpm install` first  
+**What happens:** Opens Playwright's test runner UI where you can see tests running in real browsers  
+**How to stop:** Close the UI window or press `Ctrl+C` in the terminal
+
+## Database Commands
+
+These commands manage your database schema and migrations using Drizzle ORM:
+
+### `pnpm db:generate`
+
+**What it does:** Creates migration files based on your schema changes  
+**When to use:** After you modify your database schema in `src/db/schema.ts`  
+**Prerequisites:** Must run `pnpm install` first  
+**Run this before:** `pnpm db:migrate` or `pnpm db:push`
+
+### `pnpm db:migrate`
+
+**What it does:** Applies database migrations to update your database structure  
+**When to use:** After generating migrations to update your actual database  
+**Prerequisites:** Must run `pnpm db:generate` first  
+**Important:** This modifies your database, so be careful in production
+
+### `pnpm db:push`
+
+**What it does:** Directly pushes schema changes to the database (skips migrations)  
+**When to use:** For development when you want quick schema updates  
+**Prerequisites:** Must run `pnpm install` first  
+**Warning:** Use with caution - doesn't create migration history
+
+### `pnpm db:studio`
+
+**What it does:** Opens a visual database browser in your web browser  
+**When to use:** When you want to see and edit your database data visually  
+**Prerequisites:** Must run `pnpm install` first  
+**What happens:** Opens a web interface to browse your database tables
+
+## Code Quality Commands
+
+### `pnpm lint`
+
+**What it does:** Checks your code for style and potential errors  
+**When to use:** To find code issues before committing  
+**Prerequisites:** Must run `pnpm install` first  
+**Output:** Lists any linting errors or warnings
+
+### `pnpm lint:fix`
+
+**What it does:** Automatically fixes linting errors that can be fixed  
+**When to use:** When you have linting errors and want to auto-fix them  
+**Prerequisites:** Must run `pnpm install` first  
+**Note:** Some errors need manual fixing
+
+### `pnpm format`
+
+**What it does:** Automatically formats your code to follow consistent style  
+**When to use:** To make your code look clean and consistent  
+**Prerequisites:** Must run `pnpm install` first  
+**What it formats:** JavaScript, TypeScript, JSON, CSS, and Markdown files
+
+### `pnpm format:check`
+
+**What it does:** Checks if your code is properly formatted (doesn't change files)  
+**When to use:** To see if your code needs formatting  
+**Prerequisites:** Must run `pnpm install` first  
+**Output:** Shows which files need formatting
+
+## Typical Development Workflow
+
+For beginners, here's the usual order of commands:
+
+1. **First time setup:**
 
 ```bash
-npm run build
+pnpm install
 ```
 
-## Testing
-
-This project uses [Vitest](https://vitest.dev/) for testing. You can run the tests with:
+2. **Daily development:**
 
 ```bash
-npm run test
+pnpm dev
 ```
 
-## Styling
+(Keep this running while you code)
 
-This project uses [Tailwind CSS](https://tailwindcss.com/) for styling.
-
-
-
-
-## Routing
-This project uses [TanStack Router](https://tanstack.com/router). The initial setup is a file based router. Which means that the routes are managed as files in `src/routes`.
-
-### Adding A Route
-
-To add a new route to your application just add another a new file in the `./src/routes` directory.
-
-TanStack will automatically generate the content of the route file for you.
-
-Now that you have two routes you can use a `Link` component to navigate between them.
-
-### Adding Links
-
-To use SPA (Single Page Application) navigation you will need to import the `Link` component from `@tanstack/react-router`.
-
-```tsx
-import { Link } from "@tanstack/react-router";
-```
-
-Then anywhere in your JSX you can use it like so:
-
-```tsx
-<Link to="/about">About</Link>
-```
-
-This will create a link that will navigate to the `/about` route.
-
-More information on the `Link` component can be found in the [Link documentation](https://tanstack.com/router/v1/docs/framework/react/api/router/linkComponent).
-
-### Using A Layout
-
-In the File Based Routing setup the layout is located in `src/routes/__root.tsx`. Anything you add to the root route will appear in all the routes. The route content will appear in the JSX where you use the `<Outlet />` component.
-
-Here is an example layout that includes a header:
-
-```tsx
-import { Outlet, createRootRoute } from '@tanstack/react-router'
-import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
-
-import { Link } from "@tanstack/react-router";
-
-export const Route = createRootRoute({
-  component: () => (
-    <>
-      <header>
-        <nav>
-          <Link to="/">Home</Link>
-          <Link to="/about">About</Link>
-        </nav>
-      </header>
-      <Outlet />
-      <TanStackRouterDevtools />
-    </>
-  ),
-})
-```
-
-The `<TanStackRouterDevtools />` component is not required so you can remove it if you don't want it in your layout.
-
-More information on layouts can be found in the [Layouts documentation](https://tanstack.com/router/latest/docs/framework/react/guide/routing-concepts#layouts).
-
-
-## Data Fetching
-
-There are multiple ways to fetch data in your application. You can use TanStack Query to fetch data from a server. But you can also use the `loader` functionality built into TanStack Router to load the data for a route before it's rendered.
-
-For example:
-
-```tsx
-const peopleRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: "/people",
-  loader: async () => {
-    const response = await fetch("https://swapi.dev/api/people");
-    return response.json() as Promise<{
-      results: {
-        name: string;
-      }[];
-    }>;
-  },
-  component: () => {
-    const data = peopleRoute.useLoaderData();
-    return (
-      <ul>
-        {data.results.map((person) => (
-          <li key={person.name}>{person.name}</li>
-        ))}
-      </ul>
-    );
-  },
-});
-```
-
-Loaders simplify your data fetching logic dramatically. Check out more information in the [Loader documentation](https://tanstack.com/router/latest/docs/framework/react/guide/data-loading#loader-parameters).
-
-### React-Query
-
-React-Query is an excellent addition or alternative to route loading and integrating it into you application is a breeze.
-
-First add your dependencies:
+3. **Before committing code:**
 
 ```bash
-npm install @tanstack/react-query @tanstack/react-query-devtools
+pnpm test          # Run unit tests
+pnpm test:e2e      # Run end-to-end tests
+pnpm lint          # Check code style
+pnpm format        # Format code
 ```
 
-Next we'll need to create a query client and provider. We recommend putting those in `main.tsx`.
-
-```tsx
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-
-// ...
-
-const queryClient = new QueryClient();
-
-// ...
-
-if (!rootElement.innerHTML) {
-  const root = ReactDOM.createRoot(rootElement);
-
-  root.render(
-    <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
-    </QueryClientProvider>
-  );
-}
-```
-
-You can also add TanStack Query Devtools to the root route (optional).
-
-```tsx
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-
-const rootRoute = createRootRoute({
-  component: () => (
-    <>
-      <Outlet />
-      <ReactQueryDevtools buttonPosition="top-right" />
-      <TanStackRouterDevtools />
-    </>
-  ),
-});
-```
-
-Now you can use `useQuery` to fetch your data.
-
-```tsx
-import { useQuery } from "@tanstack/react-query";
-
-import "./App.css";
-
-function App() {
-  const { data } = useQuery({
-    queryKey: ["people"],
-    queryFn: () =>
-      fetch("https://swapi.dev/api/people")
-        .then((res) => res.json())
-        .then((data) => data.results as { name: string }[]),
-    initialData: [],
-  });
-
-  return (
-    <div>
-      <ul>
-        {data.map((person) => (
-          <li key={person.name}>{person.name}</li>
-        ))}
-      </ul>
-    </div>
-  );
-}
-
-export default App;
-```
-
-You can find out everything you need to know on how to use React-Query in the [React-Query documentation](https://tanstack.com/query/latest/docs/framework/react/overview).
-
-## State Management
-
-Another common requirement for React applications is state management. There are many options for state management in React. TanStack Store provides a great starting point for your project.
-
-First you need to add TanStack Store as a dependency:
+4. **Working with database:**
 
 ```bash
-npm install @tanstack/store
+# After changing schema:
+pnpm db:generate
+pnpm db:push
+
+# To view data:
+pnpm db:studio
 ```
 
-Now let's create a simple counter in the `src/App.tsx` file as a demonstration.
-
-```tsx
-import { useStore } from "@tanstack/react-store";
-import { Store } from "@tanstack/store";
-import "./App.css";
-
-const countStore = new Store(0);
-
-function App() {
-  const count = useStore(countStore);
-  return (
-    <div>
-      <button onClick={() => countStore.setState((n) => n + 1)}>
-        Increment - {count}
-      </button>
-    </div>
-  );
-}
-
-export default App;
+5. **Before deployment:**
+```bash
+pnpm build
+pnpm start  # to test the build
 ```
-
-One of the many nice features of TanStack Store is the ability to derive state from other state. That derived state will update when the base state updates.
-
-Let's check this out by doubling the count using derived state.
-
-```tsx
-import { useStore } from "@tanstack/react-store";
-import { Store, Derived } from "@tanstack/store";
-import "./App.css";
-
-const countStore = new Store(0);
-
-const doubledStore = new Derived({
-  fn: () => countStore.state * 2,
-  deps: [countStore],
-});
-doubledStore.mount();
-
-function App() {
-  const count = useStore(countStore);
-  const doubledCount = useStore(doubledStore);
-
-  return (
-    <div>
-      <button onClick={() => countStore.setState((n) => n + 1)}>
-        Increment - {count}
-      </button>
-      <div>Doubled - {doubledCount}</div>
-    </div>
-  );
-}
-
-export default App;
-```
-
-We use the `Derived` class to create a new store that is derived from another store. The `Derived` class has a `mount` method that will start the derived store updating.
-
-Once we've created the derived store we can use it in the `App` component just like we would any other store using the `useStore` hook.
-
-You can find out everything you need to know on how to use TanStack Store in the [TanStack Store documentation](https://tanstack.com/store/latest).
-
-# Demo files
-
-Files prefixed with `demo` can be safely deleted. They are there to provide a starting point for you to play around with the features you've installed.
-
-# Learn More
-
-You can learn more about all of the offerings from TanStack in the [TanStack documentation](https://tanstack.com).

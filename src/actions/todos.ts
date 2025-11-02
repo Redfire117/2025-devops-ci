@@ -9,14 +9,13 @@ const NewTodoSchema = z.object({
 });
 
 const TodoIdSchema = z.object({
-  id: z.number()
+  id: z.number(),
 });
 
 const UpdateTodoSchema = z.object({
   id: z.number(),
   title: z.string().min(1, 'Title is required'),
 });
-
 
 // Get all todos
 export const getTodos = createServerFn({
@@ -62,11 +61,10 @@ export const toggleTodo = createServerFn()
 export const deleteTodo = createServerFn()
   .inputValidator(TodoIdSchema)
   .handler(async ({ data }) => {
-    const { id } = data
+    const { id } = data;
     await db.delete(todos).where(eq(todos.id, id));
     return { success: true };
   });
-
 
 // Update todo title
 export const updateTodoTitle = createServerFn()
