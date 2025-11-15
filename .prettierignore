@@ -35,6 +35,3 @@ README.md
 
 # Ignorer le fichiers de tests
 e2e/
-
-# Ignorer le .prettierignore
-.prettierignore
