@@ -1,4 +1,4 @@
-FROM node:18 AS builder
+FROM node:latest AS builder
 WORKDIR /app
 
 COPY package*.json ./
@@ -11,7 +11,7 @@ COPY . .
 
 RUN pnpm run build
 
-FROM node:18 AS runner
+FROM node:latest AS runner
 WORKDIR /app
 
 run npm install -g serve
