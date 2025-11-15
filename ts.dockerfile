@@ -1,7 +1,7 @@
 FROM node:latest AS builder
 WORKDIR /app
 
-COPY package*.json ./
+COPY package.json pnpm-lock.yaml ./
 
 RUN npm install -g pnpm@latest
 
@@ -14,7 +14,7 @@ RUN pnpm run build
 FROM node:latest AS runner
 WORKDIR /app
 
-run npm install -g serve
+RUN npm install -g serve
 
 COPY --from=builder /app/dist ./dist
 
