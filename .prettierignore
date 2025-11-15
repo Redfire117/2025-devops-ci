@@ -28,7 +28,7 @@ coverage
 
 # Ignorer les fichiers de configuration CI/CD
 .github/
-dockercompose.yaml
+docker-compose.yml
 
 # Ignorer les docs
 README.md
